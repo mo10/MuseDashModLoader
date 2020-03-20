@@ -1,6 +1,8 @@
 # MuseDashModLoader
 Muse Dash 插件加载器
 
+[![Build status](https://ci.appveyor.com/api/projects/status/x6u9uqyk0cvrnoa5?svg=true)](https://ci.appveyor.com/project/mo10/musedashmodloader)
+
 ## 与修改游戏文件或第三方启动器有何不同？
 
 安装MuseDashModLoader仅需要复制几个文件到游戏目录下即可，该过程中不会覆盖任何文件。
@@ -64,3 +66,6 @@ MuseDashModLoader的诞生离不开许多开源项目。
 
 Proxy:https://github.com/NeighTools/UnityDoorstop  
 Harmony:https://github.com/pardeike/Harmony
+
+msbuild test.sln /t:project;project2 /p:Configuration="Release" /p:Platform="x86" /p:BuildProjectReferences=false
+msbuild "MuseDashModLoader.sln" /t:IMod;ModLoader;winhttp /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
