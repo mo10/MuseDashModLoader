@@ -13,16 +13,25 @@ MuseDashModLoader将自动跟随游戏一同运行，无需您修改任何启动
 
 ## 安装MuseDashModLoader
 
-首先，请转到Muse Dash游戏目录下:
+首先，[在这里](https://ci.appveyor.com/project/mo10/musedashmodloader/build/artifacts)下载Dist Release.zip
 
-### Steam操作
+然后，解压里面的文件到Muse Dash游戏目录下
 
-打开Steam，在左侧游戏列表中找到Muse Dash，按下您金贵的右键，点击"属性"，在属性窗口中的"本地文件"选项卡中点击"浏览本地文件"，就会弹出Muse Dash所在目录
+最后，运行游戏，MuseDashModLoader会随着您游戏自动运行
 
+### 安装mod
 
-转到Muse Dash游戏目录后，将`winhttp.dll`,`ModLoader.dll`,`load_config.ini`,`IMod.dll`这四个文件复制过去即可。
+将您的mod放在Mods文件夹即可。
 
-插件放在`Mods`文件夹中，如果您没有这个文件夹，新建一个即可。
+如果您是第一次安装，没有找到Mods文件夹，可以手动创建或运行一次游戏。如果MuseDashModLoader工作正常，则会自动创建Mods文件夹。
+
+### 卸载mod
+
+将您要卸载的mod从Mods文件夹中移除即可。
+
+### 如何找到我的Muse Dash游戏目录
+
+打开Steam，在左侧游戏列表中找到Muse Dash，按下您的鼠标右键，点击"属性"，在属性窗口中的"本地文件"选项卡中点击"浏览本地文件"，就会打开Muse Dash所在目录。
 
 ## 听起来有点香，如何开发新插件呢？
 
