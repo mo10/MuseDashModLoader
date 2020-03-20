@@ -17,14 +17,14 @@ namespace ModLoader
         static void AssemblyLoadEventHandler(object sender, AssemblyLoadEventArgs args)
         {
             var name = args.LoadedAssembly.GetName().Name;
-            f?.WriteLine($"A assembly loaded:{name}");
+            f?.WriteLine($"Loaded:{name}");
             foreach(var mod in mods)
             {
                 try
                 {
                     if (mod.RequireAssembly != name)
                         continue;
-                    f?.WriteLine($"-->Run mod:{mod.Name}");
+                    f?.WriteLine($"-->Do Patching:{mod.Name}");
                     mod.DoPatching();
                 }catch(Exception ex)
                 {
@@ -75,7 +75,7 @@ namespace ModLoader
                 f.WriteLine($"Loaded mods:");
                 foreach (IMod mod in mods)
                 {
-                    f.WriteLine($"Name:{mod.Name} Require:{mod.RequireAssembly}");
+                    f.WriteLine($"Name:{mod.Name} Desc:{mod.Description} Require:{mod.RequireAssembly}");
                 }
                 f.WriteLine($"==========end==========");
             }
