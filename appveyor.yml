@@ -14,17 +14,17 @@ build_script:
 
 after_build:
 - ps: >-
-    New-Item -Path build\$configuration\Mods -Type Directory
+    New-Item -Path build\$CONFIGURATION\Mods -Type Directory
 
     New-Item -Path build\dist\Mods -Type Directory
 
-    Copy-Item load_config.ini -Destination build\$configuration
+    Copy-Item load_config.ini -Destination build\$CONFIGURATION
 
     Copy-Item load_config.ini -Destination build\dist
 
-    Copy-Item build\$configuration\*.dll -Destination build\dist
+    Copy-Item build\$CONFIGURATION\*.dll -Destination build\dist
 
-    Copy-Item build\$configuration\Mods\*.dll -Destination build\dist\Mods
+    Copy-Item build\$CONFIGURATION\Mods\*.dll -Destination build\dist\Mods
 
 artifacts:
 - path: build\$(configuration)
