@@ -1,0 +1,24 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+build_script:
+- ps: >-
+    nuget restore
+
+    msbuild IMod /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+    msbuild ModLoader /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+    msbuild Proxy /p:Configuration=Release /p:Platform=Win32 /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+    New-Item -Path build\Mods -Type Directory
+
+    Copy-Item load_config.ini -Destination build
+artifacts:
+- path: build\$(configuration)
+  name: Debug Release
+  type: zip
+- path: build\$(configuration)\*.dll;*.ini;build\$(configuration)\Mods\*.dll
+  name: Release
+  type: zip
