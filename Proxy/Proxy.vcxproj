@@ -194,7 +194,7 @@
       <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Verbose|Win32'">
@@ -216,7 +216,7 @@
       <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -239,7 +239,7 @@
       <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Verbose|x64'">
@@ -261,7 +261,7 @@
       <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -295,7 +295,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Verbose_Release|Win32'">
@@ -328,7 +328,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -363,7 +363,7 @@
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Verbose_Release|x64'">
@@ -396,7 +396,7 @@
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(SolutionDir)\scripts -arch $(PlatformArchitecture)</Command>
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(ProjectDir)..\scripts\genproxy.ps1 -projectPath $(ProjectDir) -templatePath $(ProjectDir)..\scripts -arch $(PlatformArchitecture)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
