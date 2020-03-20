@@ -56,5 +56,11 @@ void DoPatching():插件执行方法，可以在这里进行您的操作，如�
 
 ## 异常
 
-如果您的插件在执行DoPatching方法时抛出异常则可以在ModLoader.log找到报错信息。其他情况需要您自己实现异常捕捉.
+如果您的插件在执行DoPatching方法时抛出异常则可以在ModLoader.log找到报错信息。其他情况需要您自己实现异常捕捉。
 
+## 鸣谢
+
+MuseDashModLoader的诞生离不开许多开源项目。
+
+Proxy:https://github.com/NeighTools/UnityDoorstop  
+Harmony:https://github.com/pardeike/Harmony
