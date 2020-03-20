@@ -39,7 +39,10 @@ namespace ModLoader
         /// <param name="args"></param>
         public static void Injector(string[] args)
         {
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var loadedAssemblies = new Dictionary<string, Assembly>();
+
             AppDomain.CurrentDomain.AssemblyResolve += (sender, arg) =>
             {
                 String resourceName = "ModLoader.Includes." +
@@ -65,12 +68,11 @@ namespace ModLoader
                 }
             };
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
             f = File.CreateText("ModLoader.log");
             try
             {
+                if (!Directory.Exists($"{assemblyFolder}/Mods"))
+                    Directory.CreateDirectory($"{assemblyFolder}/Mods");
                 mods = LoadMods<IMod>($"{assemblyFolder}/Mods");
                 f.WriteLine($"Loaded mods:");
                 foreach (IMod mod in mods)
