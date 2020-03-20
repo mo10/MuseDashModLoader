@@ -75,6 +75,3 @@ MuseDashModLoader的诞生离不开许多开源项目。
 
 Proxy:https://github.com/NeighTools/UnityDoorstop  
 Harmony:https://github.com/pardeike/Harmony
-
-msbuild test.sln /t:project;project2 /p:Configuration="Release" /p:Platform="x86" /p:BuildProjectReferences=false
-msbuild "MuseDashModLoader.sln" /t:IMod;ModLoader;winhttp /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
