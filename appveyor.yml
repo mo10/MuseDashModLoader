@@ -12,13 +12,23 @@ build_script:
 
     msbuild Proxy /p:Configuration=Release /p:Platform=Win32 /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
-    New-Item -Path build\Mods -Type Directory
+after_build:
+- ps: >-
+    New-Item -Path build\$configuration\Mods -Type Directory
 
-    Copy-Item load_config.ini -Destination build
+    New-Item -Path build\dist\Mods -Type Directory
+
+    Copy-Item load_config.ini -Destination build\$configuration
+
+    Copy-Item load_config.ini -Destination build\dist
+
+    Copy-Item build\$configuration\*.dll -Destination build\dist
+
+    Copy-Item build\$configuration\Mods\*.dll -Destination build\dist\Mods
+
 artifacts:
 - path: build\$(configuration)
   name: Debug Release
-  type: zip
-- path: build\$(configuration)\*.dll;*.ini;build\$(configuration)\Mods\*.dll
-  name: Release
-  type: zip
+
+- path: build\dist
+  name: Dist Release
