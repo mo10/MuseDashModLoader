@@ -7,7 +7,6 @@ namespace ModLoader
 {
     public class ModLoader
     {
-        static TextWriter f;
         static List<IMod> mods = new List<IMod>();
         /// <summary>
         /// DLL加载事件
@@ -17,21 +16,21 @@ namespace ModLoader
         static void AssemblyLoadEventHandler(object sender, AssemblyLoadEventArgs args)
         {
             var name = args.LoadedAssembly.GetName().Name;
-            f?.WriteLine($"Loaded:{name}");
+            ModLogger.Debug($"Assembly Load:{name}");
             foreach(var mod in mods)
             {
                 try
                 {
                     if (mod.RequireAssembly != name)
                         continue;
-                    f?.WriteLine($"-->Do Patching:{mod.Name}");
+                    ModLogger.Debug($"Do Patching:{mod.Name}");
                     mod.DoPatching();
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    f.WriteLine($"Caught exception from {mod.Name}({ex.Source}):\n{ex}");
+                    ModLogger.Debug($"Caught exception from {mod.Name}({ex.Source}):\n{ex}");
                 }
             }
-            f?.Flush();
         }
         /// <summary>
         /// 注入插件主入口
@@ -45,8 +44,7 @@ namespace ModLoader
 
             AppDomain.CurrentDomain.AssemblyResolve += (sender, arg) =>
             {
-                String resourceName = "ModLoader.Includes." +
-                new AssemblyName(arg.Name).Name + ".dll";
+                String resourceName = $"ModLoader.Includes.{new AssemblyName(arg.Name).Name}.dll";
 
                 //Must return the EXACT same assembly, do not reload from a new stream
                 if (loadedAssemblies.TryGetValue(resourceName, out Assembly loadedAssembly))
@@ -67,25 +65,24 @@ namespace ModLoader
                     return assembly;
                 }
             };
-
-            f = File.CreateText("ModLoader.log");
+            // 尝试加载mod
             try
             {
                 if (!Directory.Exists($"{assemblyFolder}/Mods"))
                     Directory.CreateDirectory($"{assemblyFolder}/Mods");
                 mods = LoadMods<IMod>($"{assemblyFolder}/Mods");
-                f.WriteLine($"Loaded mods:");
+
+                ModLogger.Debug("Loaded mods:");
                 foreach (IMod mod in mods)
                 {
-                    f.WriteLine($"Name:{mod.Name} Desc:{mod.Description} Require:{mod.RequireAssembly}");
+                    ModLogger.Debug($"Name:{mod.Name} Desc:{mod.Description} Require:{mod.RequireAssembly}");
                 }
-                f.WriteLine($"==========end==========");
+                ModLogger.Debug($"==========end==========");
             }
             catch(Exception ex)
             {
-                f.WriteLine($"Caught exception from {ex.Source}:\n{ex}");
+                ModLogger.Debug($"Caught exception from {ex.Source}:\n{ex}");
             }
-            f.Flush();
             // 游戏dll加载事件监听
             currentDomain.AssemblyLoad += new AssemblyLoadEventHandler(AssemblyLoadEventHandler);
         }
