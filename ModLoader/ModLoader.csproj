@@ -54,5 +54,11 @@
       <Link>Includes\0Harmony.dll</Link>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModHelper\ModHelper.csproj">
+      <Project>{D652D574-C138-4F42-92BD-F42D3D48404A}</Project>
+      <Name>ModHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
