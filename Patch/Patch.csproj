@@ -67,6 +67,7 @@
     <ProjectReference Include="..\ModHelper\ModHelper.csproj">
       <Project>{d652d574-c138-4f42-92bd-f42d3d48404a}</Project>
       <Name>ModHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
