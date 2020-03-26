@@ -72,7 +72,19 @@ void *init_doorstop(const char *root_domain_name, const char *runtime_version)
 
 #undef CONFIG_EXT
 	}
-
+	// 设置是否显示控制台窗体
+	if (show_console_window)
+	{
+		SetEnvironmentVariableW(L"SHOW_CONSOLE_WINDOW", L"TRUE");
+		AllocConsole();
+		SetConsoleTitle(L"ModLogger");
+		SetConsoleOutputCP(CP_UTF8);
+		SetConsoleCP(CP_UTF8);
+	}
+	else
+	{
+		SetEnvironmentVariableW(L"SHOW_CONSOLE_WINDOW", L"FALSE");
+	}
 	// Set target assembly as an environment variable for use in the managed world
 	SetEnvironmentVariableW(L"DOORSTOP_INVOKE_DLL_PATH", target_assembly);
 

@@ -5,37 +5,26 @@ using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 
-namespace GraphicSettingsFix
+namespace Patch
 {
     public delegate bool CallBackPtr(IntPtr hwnd, int lParam);
-    public class GraphicSettingsFix : IMod
+    public static class GraphicSettingsFix
     {
-        public string Name => "GraphicSettingsFix";
-
-        public string Description => "无边框窗口化修复";
-
-        public string Author => "Mo10";
-
-        public string HomePage => "https://github.com/mo10";
-
-        public string RequireAssembly => "Assembly-CSharp";
-
-
         private const uint SWP_SHOWWINDOW = 64u;
         private const int GWL_STYLE = -16;
         private const int WS_BORDER = 1;
         private const int WS_POPUP = 8388608;
         private const int WS_CAPTION = 12582912;
-        public void DoPatching()
+        public static void DoPatching()
         {
-            var harmony = new Harmony("com.github.mo10.graphicsettingsfix");
+            var harmony = new Harmony("com.github.mo10.patch.graphicsettingsfix");
 
-            var SetNoBorder = AccessTools.Method(typeof(Assets.Scripts.Graphics.GraphicSettings), "SetNoBorder");
+            var SetNoBorder = AccessTools.Method(typeof(GraphicSettings), "SetNoBorder");
             var SetNoBorderPreFix = AccessTools.Method(typeof(GraphicSettingsFix), "SetNoBorder");
 
             harmony.Patch(SetNoBorder, new HarmonyMethod(SetNoBorderPreFix));
 
-            var SetHasBorder = AccessTools.Method(typeof(Assets.Scripts.Graphics.GraphicSettings), "SetHasBorder");
+            var SetHasBorder = AccessTools.Method(typeof(GraphicSettings), "SetHasBorder");
             var SetHasBorderPreFix = AccessTools.Method(typeof(GraphicSettingsFix), "SetHasBorder");
 
             harmony.Patch(SetHasBorder, new HarmonyMethod(SetHasBorderPreFix));
@@ -43,6 +32,8 @@ namespace GraphicSettingsFix
 
         public static bool SetNoBorder(int width, int height)
         {
+            ModHelper.ModLogger.Debug("Triggered");
+
             int num = Screen.currentResolution.width - width;
             int num2 = Screen.currentResolution.height - height;
             if (num < 0)
@@ -59,6 +50,8 @@ namespace GraphicSettingsFix
         }
         public static bool SetHasBorder(int width, int height)
         {
+            ModHelper.ModLogger.Debug("Triggered");
+
             int num = Screen.currentResolution.width - width;
             int num2 = Screen.currentResolution.height - height;
             if (num < 0)

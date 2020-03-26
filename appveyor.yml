@@ -6,7 +6,7 @@ build_script:
 - ps: >-
     nuget restore
 
-    msbuild IMod /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    msbuild ModHelper /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
     msbuild ModLoader /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
@@ -18,9 +18,9 @@ after_build:
 
     New-Item -Path build\dist\Mods -Type Directory
 
-    Copy-Item load_config.ini -Destination build\${env:CONFIGURATION}
+    Copy-Item ModConfig.ini -Destination build\${env:CONFIGURATION}
 
-    Copy-Item load_config.ini -Destination build\dist
+    Copy-Item ModConfig.ini -Destination build\dist
 
     Copy-Item build\${env:CONFIGURATION}\*.dll -Destination build\dist
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{D652D574-C138-4F42-92BD-F42D3D48404A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IMod</RootNamespace>
-    <AssemblyName>IMod</AssemblyName>
+    <RootNamespace>ModHelper</RootNamespace>
+    <AssemblyName>ModHelper</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMod.cs" />
+    <Compile Include="ModLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,6 +43,22 @@ Put the mod file (.dll extension) into the `Mods` folder.
 
 Just delete it from the `Mods` folder.
 
+## ModLoader.ini Configuration
+
+Some initial behavior of MuseDashModLoader can be set in `ModConfig.ini`
+
+```ini
+[UnityDoorstop]
+# Specify whether to enable Modloader
+enabled=true
+# Specify the dll to be injected
+targetAssembly=ModLoader.dll
+# Specifies whether Unity's output log should be redirected to <current folder>\output_log.txt
+redirectOutputLog=true
+# Specifies whether to display the debug window. Using ModLogger.Debug() method
+showConsoleWindow=true
+```
+
 ## Develop new mods
 
 Development tools: Visual Studio 2019
@@ -51,14 +67,15 @@ Development tools: Visual Studio 2019
 2. Select `Class Library (.NET Framework)` tamplate.
 3. Select Framework version: `.NET Framework 3.5`.
 4. Complete project creation.
-5. Add [IMod](IMod) project to your `Solution`.
-6. Add `IMod` reference to your project.
-7. In `IMod Reference Properties`, set `Copy Local` to `False`.  
+5. Add [ModHelper](ModHelper) project to your `Solution`.
+6. Add `ModHelper` reference to your project.
+7. In `ModHelper Reference Properties`, set `Copy Local` to `False`.  
 If you use `Harmony` Library in your project, you also need to set `Copy Local` to `False`.  
 ModLoader already contains the library.
 8. Create a new class,here is an example.  
 ```csharp
 using HarmonyLib;
+using ModHelper;
 
 namespace MyAwesomeProject
 {
@@ -71,25 +88,23 @@ namespace MyAwesomeProject
         public string Author => "Mo10";
 
         public string HomePage => "https://github.com/mo10/MuseDashModLoader";
-        /// <summary>
-        /// DoPatching method will be executed after an assembly is loaded.
-        /// If it is empty, the mod will never execute the DoPatching method.
-        /// </summary>
-        public string RequireAssembly => "Assembly-CSharp";
 
         public void DoPatching()
         {
             var harmony = new Harmony("com.github.mo10.myawesomemod");
             // To do somthing...
+
+            // When you want to print the log:
+            // ModHelper.ModLogger.Debug("My log output");
         }
     }
 }
 ```
-9. Write your code to DoPatching, which executes when the required assembly loads.
+9. When the MuseDashModLoader runs, the DoPatching method will be executed.
 
 ## Catch exception
 
-If your mod throws an exception in DoPatching(), you can find the exception message in `modloader.log`.
+If your mod throws an exception in DoPatching(), you can find the exception message in `Modlogger.log`.
 
 ## Thanks
 

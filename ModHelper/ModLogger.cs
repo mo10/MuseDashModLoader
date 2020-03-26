@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
 
-namespace ModLoader
+namespace ModHelper
 {
-
     public static class ModLogger
     {
         private static StreamWriter fs = File.CreateText("ModLogger.log");
-        private static Object  locker = new Object();
+        private static object  locker = new object();
+
+        private static bool IsShowConsole = false;
+        static ModLogger()
+        {
+            if (Environment.GetEnvironmentVariable("SHOW_CONSOLE_WINDOW") == "TRUE")
+            {
+                IsShowConsole = true;
+            }
+        }
         public static void Debug(object obj)
         {
             var frame = new StackTrace().GetFrame(1);
@@ -19,11 +26,12 @@ namespace ModLoader
         }
         private static void AddLog(string className, string methodName,object obj)
         {
-            string time = DateTime.Now.ToString("HH:mm:ss");
-            var text = $"[{time}][{className}:{methodName}]: {obj}";
+            var text = $"[{className}:{methodName}]: {obj}";
 
             lock (locker)
             {
+                if(IsShowConsole)
+                    Console.Error.WriteLine(text);
                 fs.WriteLine(text);
                 fs.Flush();
             }

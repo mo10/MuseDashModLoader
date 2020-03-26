@@ -5,12 +5,13 @@
 #include "winapi_util.h"
 #include "assert_util.h"
 
-#define CONFIG_NAME L"load_config.ini"
+#define CONFIG_NAME L"ModConfig.ini"
 #define DEFAULT_TARGET_ASSEMBLY L"ModLoader.dll"
 #define EXE_EXTENSION_LENGTH 4
 
 BOOL enabled = FALSE;
 BOOL redirect_output_log = FALSE;
+BOOL show_console_window = FALSE;
 wchar_t *target_assembly = NULL;
 
 #define STR_EQUAL(str1, str2) (lstrcmpiW(str1, str2) == 0)
@@ -39,6 +40,14 @@ inline void init_config_file()
 		redirect_output_log = TRUE;
 	else if (STR_EQUAL(enabledString, L"false"))
 		redirect_output_log = FALSE;
+
+	wmemset(enabledString, '\0', 256);
+	GetPrivateProfileStringW(L"UnityDoorstop", L"showConsoleWindow", L"false", enabledString, 256, configPath);
+
+	if (STR_EQUAL(enabledString, L"true"))
+		show_console_window = TRUE;
+	else if (STR_EQUAL(enabledString, L"false"))
+		show_console_window = FALSE;
 
 	wchar_t *tmp = get_ini_entry(configPath, L"UnityDoorstop", L"targetAssembly", DEFAULT_TARGET_ASSEMBLY);
 	target_assembly = get_full_path(tmp, wcslen(tmp));

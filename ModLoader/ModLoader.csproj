@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModLoader.cs" />
-    <Compile Include="ModLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,13 +53,6 @@
     <EmbeddedResource Include="..\packages\Lib.Harmony.2.0.0.8\lib\net35\0Harmony.dll">
       <Link>Includes\0Harmony.dll</Link>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IMod\IMod.csproj">
-      <Project>{d652d574-c138-4f42-92bd-f42d3d48404a}</Project>
-      <Name>IMod</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

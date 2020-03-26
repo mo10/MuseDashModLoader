@@ -7,8 +7,8 @@
     <ProjectGuid>{C56CBB42-649B-4104-9694-55261EA8549E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GraphicSettingsFix</RootNamespace>
-    <AssemblyName>GraphicSettingsFix</AssemblyName>
+    <RootNamespace>Patch</RootNamespace>
+    <AssemblyName>Patch</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -39,6 +39,10 @@
       <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Muse Dash\MuseDash_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>D:\Program Files (x86)\Steam\steamapps\common\Muse Dash\MuseDash_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,15 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscordFix.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="GraphicSettingsFix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IMod\IMod.csproj">
-      <Project>{d652d574-c138-4f42-92bd-f42d3d48404a}</Project>
-      <Name>IMod</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
