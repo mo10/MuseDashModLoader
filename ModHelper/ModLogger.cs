@@ -24,7 +24,7 @@ namespace ModHelper
             var methodName = frame.GetMethod().Name;
             AddLog(className, methodName, obj);
         }
-        private static void AddLog(string className, string methodName,object obj)
+        public static void AddLog(string className, string methodName,object obj)
         {
             var text = $"[{className}:{methodName}]: {obj}";
 
