@@ -3,6 +3,11 @@ Muse Dash 插件加载器
 
 [![Build status](https://ci.appveyor.com/api/projects/status/x6u9uqyk0cvrnoa5?svg=true)](https://ci.appveyor.com/project/mo10/musedashmodloader)
 
+## 当前可用插件
+
+- Patch : 修复游戏无边框的实现方法；修复 Discord API 抛出异常。
+- RedirectUnityLog : 重定向和追踪 `Debug.Log()` 等方法的输出到 `ModLogger`，对开发游戏/插件有帮助。
+
 ## 与修改游戏文件或第三方启动器有何不同？
 
 安装MuseDashModLoader仅需要复制几个文件到游戏目录下即可，不会覆盖任何文件。

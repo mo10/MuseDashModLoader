@@ -5,6 +5,11 @@ A Muse Dash Mod Loader
 
 [中文Readme](README.zh.md)
 
+## Now available mods
+
+- Patch : Fix game borderless implementation. Fix Discord API error.
+- RedirectUnityLog : Redirect and trace the output of methods like Debug.Log () to Modlogger.Helpful for development.
+
 ## How is it different from modifying game files or third-party launchers?
 
 To install MuseDashModLoader, you only need to copy a few files to the game root directory.
