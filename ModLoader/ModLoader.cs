@@ -10,6 +10,35 @@ namespace ModLoader
     {
         static List<IMod> mods = new List<IMod>();
 
+        private static void OnAssemblyLoadEventHandler(object sender, AssemblyLoadEventArgs args)
+        {
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            if (args.LoadedAssembly.GetName().Name  == "Assembly-CSharp")
+            {
+                ModLogger.Debug("Start Load Mod");
+                // Try to load mods
+                try
+                {
+                    if (!Directory.Exists($"{assemblyFolder}/Mods"))
+                        Directory.CreateDirectory($"{assemblyFolder}/Mods");
+
+                    mods = LoadMods<IMod>($"{assemblyFolder}/Mods");
+
+                    ModLogger.Debug("Loaded mods:");
+                    foreach (IMod mod in mods)
+                    {
+                        ModLogger.Debug($"Name:{mod.Name} Desc:{mod.Description}");
+                        mod.DoPatching();
+                    }
+                    ModLogger.Debug($"==========end==========");
+                }
+                catch (Exception ex)
+                {
+                    ModLogger.Debug($"Caught exception from {ex.Source}:\n{ex}");
+                }
+            }
+        }
         /// <summary>
         /// mono inject entry
         /// </summary>
@@ -21,6 +50,7 @@ namespace ModLoader
             string managedFolder = Environment.GetEnvironmentVariable("DOORSTOP_MANAGED_FOLDER_DIR");
             var loadedAssemblies = new Dictionary<string, Assembly>();
 
+            currentDomain.AssemblyLoad += new AssemblyLoadEventHandler(OnAssemblyLoadEventHandler);
             AppDomain.CurrentDomain.AssemblyResolve += (sender, arg) =>
             {
                 String resourceName = $"ModLoader.Includes.{new AssemblyName(arg.Name).Name}.dll";
@@ -44,28 +74,11 @@ namespace ModLoader
                     return assembly;
                 }
             };
-
-            // Try to load mods
-            try
-            {
-                if (!Directory.Exists($"{assemblyFolder}/Mods"))
-                    Directory.CreateDirectory($"{assemblyFolder}/Mods");
-
-                mods = LoadMods<IMod>($"{assemblyFolder}/Mods");
-
-                ModLogger.Debug("Loaded mods:");
-                foreach (IMod mod in mods)
-                {
-                    ModLogger.Debug($"Name:{mod.Name} Desc:{mod.Description}");
-                    mod.DoPatching();
-                }
-                ModLogger.Debug($"==========end==========");
-            }
-            catch (Exception ex)
-            {
-                ModLogger.Debug($"Caught exception from {ex.Source}:\n{ex}");
-            }
+            ModLogger.Debug("Waiting for Assembly-CSharp loaded.");
         }
+
+
+
         /// <summary>
         /// Load Mods Dll
         /// </summary>
