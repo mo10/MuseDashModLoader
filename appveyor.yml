@@ -14,8 +14,6 @@ build_script:
 
 after_build:
 - ps: >-
-    echo y | rd /s dist
-
     New-Item -Path build\${env:CONFIGURATION}\Mods -Type Directory
 
     New-Item -Path build\dist\Mods -Type Directory
