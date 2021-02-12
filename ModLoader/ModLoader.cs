@@ -1,15 +1,17 @@
 ﻿using ModHelper;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace ModLoader
 {
     public class ModLoader
     {
-        static List<IMod> mods = new List<IMod>();
-
+        private static List<IMod> mods = new List<IMod>();
+        private static Dictionary<string, Assembly> depends = new Dictionary<string, Assembly>();
         private static void OnAssemblyLoadEventHandler(object sender, AssemblyLoadEventArgs args)
         {
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -48,31 +50,22 @@ namespace ModLoader
             AppDomain currentDomain = AppDomain.CurrentDomain;
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string managedFolder = Environment.GetEnvironmentVariable("DOORSTOP_MANAGED_FOLDER_DIR");
+            //bool isWaitingForDebugger = Environment.GetEnvironmentVariable("WAITING_FOR_DEBUGGER") == "FALSE" ? false : true;
+
+            LoadDependency(Assembly.GetCallingAssembly());
+
             var loadedAssemblies = new Dictionary<string, Assembly>();
 
             currentDomain.AssemblyLoad += new AssemblyLoadEventHandler(OnAssemblyLoadEventHandler);
             AppDomain.CurrentDomain.AssemblyResolve += (sender, arg) =>
             {
-                String resourceName = $"ModLoader.Includes.{new AssemblyName(arg.Name).Name}.dll";
 
-                //Must return the EXACT same assembly, do not reload from a new stream
-                if (loadedAssemblies.TryGetValue(resourceName, out Assembly loadedAssembly))
+                if (depends.TryGetValue(arg.Name, out Assembly loadedAssembly))
                 {
                     return loadedAssembly;
                 }
+                return null;
 
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-                {
-                    if (stream == null)
-                        return null;
-                    Byte[] assemblyData = new Byte[stream.Length];
-
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-
-                    var assembly = Assembly.Load(assemblyData);
-                    loadedAssemblies[resourceName] = assembly;
-                    return assembly;
-                }
             };
             ModLogger.Debug("Waiting for Assembly-CSharp loaded.");
         }
@@ -101,6 +94,7 @@ namespace ModLoader
                 {
                     AssemblyName an = AssemblyName.GetAssemblyName(dllFile);
                     Assembly assembly = Assembly.Load(an);
+                    
                     foreach (Type type in assembly.GetTypes())
                     {
                         if (type.GetInterface(typeof(T).ToString()) != null)
@@ -108,6 +102,7 @@ namespace ModLoader
                             mods.Add((T)Activator.CreateInstance(type));
                         }
                     }
+                    LoadDependency(assembly);
                 }
                 catch (Exception)
                 {
@@ -116,6 +111,34 @@ namespace ModLoader
                 }
             }
             return mods;
+        }
+
+        private static void LoadDependency(Assembly assembly)
+        {
+            foreach (string dependStr in assembly.GetManifestResourceNames())
+            {
+                string filter = $"{assembly.GetName().Name}.Depends.";
+                if (dependStr.StartsWith(filter) && dependStr.EndsWith(".dll"))
+                {
+                    string dependName = dependStr.Remove(dependStr.LastIndexOf(".dll")).Remove(0, filter.Length);
+                    if (depends.ContainsKey(dependName))
+                    {
+                        ModLogger.Debug($"Dependency conflict: {dependName} First at: {depends[dependName].GetName().Name}");
+                        continue;
+                    }
+
+                    Assembly dependAssembly;
+                    using (var stream = assembly.GetManifestResourceStream(dependStr))
+                    {
+                        byte[] buffer = new byte[stream.Length];
+                        stream.Read(buffer, 0, buffer.Length);
+                        dependAssembly = Assembly.Load(buffer);
+                    }
+                    ModLogger.Debug($"Dependency added: {dependName}");
+
+                    depends.Add(dependName, dependAssembly);
+                }
+            }
         }
     }
 }

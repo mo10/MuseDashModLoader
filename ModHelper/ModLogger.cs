@@ -7,14 +7,14 @@ namespace ModHelper
     public static class ModLogger
     {
         private static StreamWriter fs = File.CreateText("ModLogger.log");
-        private static object  locker = new object();
+        private static object locker = new object();
 
-        private static bool IsShowConsole = false;
+        private static bool isShowConsole = false;
         static ModLogger()
         {
             if (Environment.GetEnvironmentVariable("SHOW_CONSOLE_WINDOW") == "TRUE")
             {
-                IsShowConsole = true;
+                isShowConsole = true;
             }
         }
         public static void Debug(object obj)
@@ -30,7 +30,7 @@ namespace ModHelper
 
             lock (locker)
             {
-                if(IsShowConsole)
+                if(isShowConsole)
                     Console.Error.WriteLine(text);
                 fs.WriteLine(text);
                 fs.Flush();
