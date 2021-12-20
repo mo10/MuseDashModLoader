@@ -10,7 +10,7 @@ build_script:
 
     msbuild ModLoader /p:Configuration=Release /p:Platform=AnyCPU /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
-    msbuild Proxy /p:Configuration=Release /p:Platform=Win32 /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    msbuild Proxy /p:Configuration=Release /p:Platform=x64 /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 after_build:
 - ps: >-
@@ -28,7 +28,7 @@ after_build:
 
 artifacts:
 - path: build\$(configuration)
-  name: Debug Release
+  name: With PDB
 
 - path: build\dist
-  name: Dist Release
+  name: Release
